@@ -75,7 +75,7 @@ void sort(rotation* arr, int l, int h, int c, char* buf){//c means column
 	while(i <= gt){
 		char t = charAt(arr[i].index, c, buf);//each row's character, used to compare the first row's character
 		if(t==Deliminater) {t=0;}//-1;}
-		if(t < v){//if(t < v || (t == Deliminater && v != Deliminater) ){
+		if(t < v){
 			exchange(arr, lt++, i++);
 		}
 		else if(t > v){
@@ -238,11 +238,6 @@ void encode(char deliminater, char* inputFile, char* outputFile, char* indexFile
 	buf = (char*) malloc(fsize*sizeof(char));
 	fread(buf, fsize, 1, inf);
 	fclose(inf);
-
-	// if file is empty, exit
-	/*if(fsize == 0){
-		return;
-	}*/
 
 
 	FILE* outf = fopen(outputFile, "awb");
