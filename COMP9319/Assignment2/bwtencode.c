@@ -12,8 +12,6 @@
 #define INDEX_BUF_SIZE 10000
 
 
-
-
 char Deliminater;
 
 typedef struct {
