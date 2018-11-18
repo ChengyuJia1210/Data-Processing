@@ -201,7 +201,6 @@ void searchM(int** occ, int* cTable, int* ct, int capacity, FILE* bwtf, char del
 	int last = end - 1;//the last index of the backWord
 	int first = cTable[prevWord] - ct[prevWord];
 
-	//printf("prevWord:%c,first:%d, last:%d, cTable[prevWord]:%d\n", prevWord, first, last, cTable['n']);
 	int prevFirst, prevLast;
 	while(first < last && endIndex >= 1){
 		// if "first < 0" or "first < 0", there is no match words
@@ -252,14 +251,11 @@ char* searchN_A(int** occ, int* cTable, int* ct, int capacity, FILE* bwtf, char 
 	int delimOccIndex = 0;
 	int delimIndex = 0;
 	int count = 0;//"count" is used to count the number of search string
-	//printf("start: %d, end: %d, backWord: %c\n", start, end, backWord);
 
-//----------------------------------------------------
 	/* Get the number of bytes of the delimiter covered
 	 *  And becuase we start from 1 to count, then we need count 1 more bit space*/
 	int delNum = iceil((ct[0]+1), 8);
 	char* delId = (char*) calloc(delNum, sizeof(char));
-//	printf("ct:%d, delNum:%d\n", ct[0], delNum);
 
 	char prevWord = string[endIndex];
 	if(prevWord == deliminater){
@@ -270,9 +266,6 @@ char* searchN_A(int** occ, int* cTable, int* ct, int capacity, FILE* bwtf, char 
 	int last = end - 1;//the last index of the backWord
 	int first = cTable[prevWord] - ct[prevWord];
 	
-
-
-	//printf("prevWord:%c,first:%d, last:%d, cTable[prevWord]:%d\n", prevWord, first, last, cTable['n']);
 	int prevFirst, prevLast;
 	while(first < last && endIndex >= 1){
 		prevWord = string[--endIndex];
@@ -281,26 +274,19 @@ char* searchN_A(int** occ, int* cTable, int* ct, int capacity, FILE* bwtf, char 
 		first = prevFirst;
 		last = prevLast;
 	}
-//	printf("first:%d, last:%d\n", first, last);
 	if(last < first || first < 0 || first < 0){
 		return delId;
 	}
 	else{
 		i = first;
 		end = last;
-//----------------------------------------------------
 		while(i <= end){
-	//printf("entry while, i:%d, end:%d\n", i, end);
-			//flag = 0;
-			//len2 = endIndex - 1;
 			fseek(bwtf, i, SEEK_SET);
 			alpha = fgetc(bwtf);
 			if(alpha == deliminater){
 				alpha = 0;
 			}
 			occIndex = fileOccFunction(occ, i, capacity, bwtf, alpha);
-			//index = (cTable[alpha] - ct[alpha]) + occIndex - 1;
-			//----------------------------------------------------
 			if(alpha == 0){
 			  fseek(indexf, 4*(occIndex-1), SEEK_SET);
 			  occIndex = getw(indexf);
@@ -327,7 +313,6 @@ char* searchN_A(int** occ, int* cTable, int* ct, int capacity, FILE* bwtf, char 
 			  i++;
 			  continue;
 			}
-			//-----------------------------------------------------
 			while(1){
 
 				//if arrive the deliminater, add its occ index into linked list and break this leave's while
@@ -371,7 +356,6 @@ char* searchN_A(int** occ, int* cTable, int* ct, int capacity, FILE* bwtf, char 
 }
 
 void searchN(int** occ, int* cTable, int* ct, int capacity, FILE* bwtf, char deliminater, char* string, FILE* indexf){
-	//printf("entry -n search\n");
 	int count = 0;
 	int i;
 	char* delId;	
@@ -388,7 +372,6 @@ void searchN(int** occ, int* cTable, int* ct, int capacity, FILE* bwtf, char del
 
 
 void searchA(int** occ, int* cTable, int* ct, int capacity, FILE* bwtf, char deliminater, char* string, FILE* indexf){
-	//printf("entry -a search\n");
 	int i;
 	char* delId;	
 	delId = searchN_A(occ, cTable, ct, capacity, bwtf, deliminater, string, indexf);
