@@ -10,10 +10,6 @@
 
 char Deliminater;
 
-//int fsize;//file size
-
-
-
 int iceil(int val, int base)
 {
 	int ceil = val / base;
@@ -168,7 +164,7 @@ int upToDown(char prevWord, int** occ, int* cTable, int* ct, int capacity, FILE*
 
 
 int downToUp(char prevWord, int** occ, int* cTable, int* ct, int capacity, FILE* bwtf, int start, int end){//int fIndex, 
-	int i = end;// - 1;
+	int i = end;
 	int prevEnd;
 	char alpha;
 	int occIndex;
@@ -214,13 +210,11 @@ void searchM(int** occ, int* cTable, int* ct, int capacity, FILE* bwtf, char del
 		}
 
 		prevWord = string[--endIndex];
-		//printf("---- prevWord:%c\n", prevWord);
 		prevFirst = upToDown(prevWord, occ, cTable, ct, capacity, bwtf, first, last);
 		prevLast = downToUp(prevWord, occ, cTable, ct, capacity, bwtf, first, last);
 		first = prevFirst;
 		last = prevLast;
 	}
-	//printf("first:%d, last:%d\n", first, last);
 	if(last < first || first < 0 || first < 0){
 		printf("0\n");
 	}
@@ -239,7 +233,6 @@ void searchM(int** occ, int* cTable, int* ct, int capacity, FILE* bwtf, char del
      * 
  **************************************************************************************************/
 char* searchN_A(int** occ, int* cTable, int* ct, int capacity, FILE* bwtf, char deliminater, char* string, FILE* indexf){	
-	//	printf("entry -NandA search\n");
 	int len = strlen(string);
 	int endIndex = len - 1;
 	int len2;
